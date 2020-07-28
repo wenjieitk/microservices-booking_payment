@@ -1,0 +1,39 @@
+{
+  "name": "microservices-booking_payment",
+  "version": "1.0.0",
+  "description": "This app is about a microservices app for booking and payment",
+  "engines": {
+    "node": "12.18.2"
+  },
+  "scripts": {
+    "dev:payment": "nodemon payment/src/index.js --ext js --exec babel-node",
+    "dev:booking": "nodemon booking/src/index.js --ext js --exec babel-node",
+    "dev": "concurrently --kill-others \"npm run dev:payment\" \"npm run dev:booking\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://wenjieitk@github.com/wenjieitk/microservices-booking_payment.git"
+  },
+  "author": "Sing Wen Jie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wenjieitk/microservices-booking_payment/issues"
+  },
+  "homepage": "https://github.com/wenjieitk/microservices-booking_payment#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "concurrently": "^5.2.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "lodash": "^4.17.19",
+    "loglevel": "^1.6.8",
+    "lowdb": "^1.0.0",
+    "uuid": "^8.3.0"
+  }
+}
