@@ -1,0 +1,11 @@
+### Create new booking
+GET   http://localhost:3000/booking/create
+
+### Cancel a booking {id: String}!
+GET   http://localhost:3000/booking/cancel?id=
+
+### Check booking {id: String}?
+GET   http://localhost:3000/booking/check?id=
+
+### retry a booking {id: String}!
+GET   http://localhost:3000/booking/retry?id=

@@ -1,11 +1,15 @@
 import express from 'express'
 import 'express-async-errors'
 import logger from 'loglevel'
+import {getRoutes} from './routes'
+import {db} from "./data/lowdb"
 
 function startServer({port = process.env.PORT || 3000} = {}) {
   const app = express()
   app.use(express.json())
   app.use(errorMiddleware)
+  app.use('/', getRoutes())
+  db.set('bookings', []).write()
 
   return new Promise(resolve => {
     const server = app.listen(port, () => {
@@ -51,4 +55,7 @@ function setupCloseOnExit (server) {
   process.on('uncaughtException', exitHandler.bind(null, {exit: true}))
 }
 
-export {startServer}
+export {
+  startServer,
+  db
+}
