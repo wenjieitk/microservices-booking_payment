@@ -4,7 +4,6 @@ import logger from 'loglevel'
 
 const payment = async(req, res) => {
     try {
-        console.log("hahahaha")
         if(_.isEmpty(req.body))
             return res.status(400).send('Empty request!')
 

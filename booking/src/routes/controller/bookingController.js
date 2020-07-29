@@ -63,21 +63,21 @@ const check = async(req, res) => {
         if(!req.query.id) 
             bookings = await db.get('bookings').value()
         else {
-            bookings = await db.get('bookings').find({id: req.query.id}).value()
-            if(!bookings)
+            const booking = await db.get('bookings').find({id: req.query.id}).value()
+            if(!booking)
                 return res.status(401).send('Booking not existed!')
 
-            const paymentHistory = await axios.get(`http://localhost:3001/payment/check?id=${bookings.id}`, {
+            const paymentHistory = await axios.get(`http://localhost:3001/payment/check?id=${booking.id}`, {
                 headers: {'authentication-header': 'DummyTokenFromBooking'}
             })
-            finalRes = {
-                id: bookings.id,
-                status: bookings.status,
+            bookings = {
+                id: booking.id,
+                status: booking.status,
                 paymentHistory: paymentHistory.data
             }
         }
 
-        return res.status(200).send(finalRes)
+        return res.status(200).send(bookings)
     } catch (error) {
         return res.send(400).send(`${JSON.stringify(error, null, 2)}`)
     }
