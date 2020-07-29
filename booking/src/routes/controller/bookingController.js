@@ -58,7 +58,7 @@ const cancel = async(req, res) => {
 }
 
 const check = async(req, res) => {
-    let bookings
+    let bookings, finalRes
     try {
         if(!req.query.id) 
             bookings = await db.get('bookings').value()
@@ -70,10 +70,14 @@ const check = async(req, res) => {
             const paymentHistory = await axios.get(`http://localhost:3001/payment/check?id=${bookings.id}`, {
                 headers: {'authentication-header': 'DummyTokenFromBooking'}
             })
-            bookings['paymentHistory'] = paymentHistory.data
+            finalRes = {
+                id: bookings.id,
+                status: bookings.status,
+                paymentHistory: paymentHistory.data
+            }
         }
 
-        return res.status(200).send(bookings)
+        return res.status(200).send(finalRes)
     } catch (error) {
         return res.send(400).send(`${JSON.stringify(error, null, 2)}`)
     }
